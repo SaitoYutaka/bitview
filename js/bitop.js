@@ -51,9 +51,13 @@ function hex2bit(h) {
     return b;
 }
 
+function bitformat(b){
+    return b.slice(0,4) + ' ' + b.slice(4,8);
+}
 $('#hex2bit').click(function(){
-    // alert('hoge');
-    $('#bitstr').text(hex2bit($('#txtbyte').val()))
+    var b = hex2bit($('#txtbyte').val());
+    b = bitformat(b);
+    $('#bitstr').text(b);
 });
 
 function bit2ascii(b){
