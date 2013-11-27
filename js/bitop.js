@@ -54,9 +54,25 @@ function hex2bit(h) {
 function bitformat(b){
     return b.slice(0,4) + ' ' + b.slice(4,8);
 }
+
 $('#hex2bit').click(function(){
     var b = hex2bit($('#txtbyte').val());
-    b = bitformat(b);
+    if ($('#myCheckBox:checked').val() !== undefined)
+    {
+	b = bitformat(b);
+    }
+    $('#bitstr').text(b);
+});
+
+
+$('#myCheckBox').click(function(){
+    var b = $('#bitstr').text();
+    if(b=='')return;
+    if($(this).is(':checked')) {
+	b = bitformat(b);
+    } else {
+	b = b.replace(" ","");
+    }
     $('#bitstr').text(b);
 });
 
