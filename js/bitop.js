@@ -52,12 +52,50 @@ function hex2bit(h) {
 }
 
 function bitformat(b){
-    return b.slice(0,4) + ' ' + b.slice(4,8);
+    var c = b.length / 4;
+    var r = new String();
+    for(i=0;i<c;i++){
+	r += b.slice(4*i, ((4*i)+4)) + ' ';
+    }
+    //return b.slice(0,4) + ' ' + b.slice(4,8);
+    return r;
+}
+
+function isHex(s){
+    for(i=0;i<s.length;i++){
+	switch(s[i]){
+	    case '0': break;
+	    case '1': break;
+	    case '2': break;
+	    case '3': break;
+	    case '4': break;
+	    case '5': break;
+	    case '6': break;
+	    case '7': break;
+	    case '8': break;
+	    case '9': break;
+	    case 'a': break;
+	    case 'b': break;
+	    case 'c': break;
+	    case 'd': break;
+	    case 'e': break;
+	    case 'f': break;
+	    default: return false;
+	}
+    }
+    return true;
 }
 
 $('#hex2bit').click(function(){
-    var b = hex2bit($('#txtbyte').val());
-    if ($('#myCheckBox:checked').val() !== undefined)
+
+    var b = $('#txtbyte').val();
+    b = b.replace(/ /g,"");
+
+    if(isHex(b)==false) return;
+
+    b = hex2bit(b);
+
+    if ($('#myCheckBox:checked').val() != undefined)
     {
 	b = bitformat(b);
     }
@@ -71,7 +109,7 @@ $('#myCheckBox').click(function(){
     if($(this).is(':checked')) {
 	b = bitformat(b);
     } else {
-	b = b.replace(" ","");
+	b = b.replace(/ /g,"");
     }
     $('#bitstr').text(b);
 });
