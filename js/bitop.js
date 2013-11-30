@@ -315,3 +315,22 @@ $('#showedid').click(function(){
 
 });
 
+$('.highlighted').on('click', function() {
+    $('#bitstr').getHighlighter().removeHighlights(this);
+});
+
+$('#bitstr').textHighlighter({
+    onRemoveHighlight: function(highlight) {
+	console.log('Do you really want to remove this highlight: "' + $(highlight).text() + '"?');
+        return true;// confirm('Do you really want to remove this highlight: "' + $(highlight).text() + '"?');
+    },
+    onBeforeHighlight: function(range) {
+	console.log('Do you really want to highlight this text: "' + range + '"?');
+	$('#selectedbit').text(range);
+        return true;//confirm('Do you really want to highlight this text: "' + range + '"?');
+    },
+    onAfterHighlight: function(highlights, range) {
+	console.log('You have selected "' + range + '" and created ' + highlights.length + ' highlight(s)!');
+        //alert('You have selected "' + range + '" and created ' + highlights.length + ' highlight(s)!');
+    }
+});
