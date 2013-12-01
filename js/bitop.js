@@ -46,6 +46,7 @@ function hex2bit(h) {
 	case 'd': b = b + '1101'; break;
 	case 'e': b = b + '1110'; break;
 	case 'f': b = b + '1111'; break;
+	default: break;
 	}
     }
     return b;
@@ -62,8 +63,12 @@ function bitformat(b){
 }
 
 function isHex(s){
-    for(i=0;i<s.length;i++){
-	switch(s[i]){
+
+    var lines = s.split('\n');
+    for(i=0;i<lines.length;i++){
+
+	for(j=0;j<lines[i].length;j++){
+	    switch(lines[i][j]){
 	    case '0': break;
 	    case '1': break;
 	    case '2': break;
@@ -81,8 +86,10 @@ function isHex(s){
 	    case 'e': break;
 	    case 'f': break;
 	    default: return false;
+	    }
 	}
     }
+
     return true;
 }
 
