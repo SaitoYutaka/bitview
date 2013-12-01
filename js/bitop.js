@@ -86,10 +86,43 @@ function isHex(s){
     return true;
 }
 
+function chengeEndian(s){
+
+    var lines = s.split('\n');
+
+    var r  = new String();
+
+    for(i=0;i<lines.length;i++){
+	var l = lines[i].length/2;
+	if((l%2)==1){
+	    console.log('err hex string');
+	}
+
+	var j = 0;
+	while(j<l){
+	    j += 2;
+	    r += lines[i][j];
+	    j += 1;
+	    r += lines[i][j];
+	    j -= 3;
+	    r += lines[i][j];
+	    j += 1;
+	    r += lines[i][j];
+	    j += 2;
+	}
+	r += '\n';
+    }
+
+    $('#outputtext ').val(r);
+    console.log('retutn' + r);
+}
+
 $('#hex2bit').click(function(){
 
     var b = $('#txtbyte').val();
     b = b.replace(/ /g,"");
+
+    chengeEndian(b);
 
     if(isHex(b)==false) return;
 
