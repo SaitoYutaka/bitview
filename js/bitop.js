@@ -46,6 +46,7 @@ function hex2bit(h) {
 	case 'd': b = b + '1101'; break;
 	case 'e': b = b + '1110'; break;
 	case 'f': b = b + '1111'; break;
+	case '\n': b = b + '\n'; break;
 	default: break;
 	}
     }
@@ -140,6 +141,7 @@ $('#hex2bit').click(function(){
 	b = bitformat(b);
     }
     $('#bitstr').text(b);
+    $('#outputbit').val(b);
 });
 
 
