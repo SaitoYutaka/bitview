@@ -54,14 +54,27 @@ function hex2bit(h) {
 }
 
 function bitformat(b){
-    var c = b.length / 4;
     var r = new String();
-    for(i=0;i<c;i++){
-	r += b.slice(4*i, ((4*i)+4)) + ' ';
+    var lines = b.split('\n');
+    for(i=0;i<lines.length;i++){
+	var c = lines[i].length / 4;
+	for(k=0;k<c;k++){
+	    r += lines[i].slice(4*k, ((4*k)+4)) + ' ';
+	}
+	r += '\n';
     }
-    //return b.slice(0,4) + ' ' + b.slice(4,8);
     return r;
 }
+ 
+// function bitformat(b){
+//     var c = b.length / 4;
+//     var r = new String();
+//     for(i=0;i<c;i++){
+// 	r += b.slice(4*i, ((4*i)+4)) + ' ';
+//     }
+//     //return b.slice(0,4) + ' ' + b.slice(4,8);
+//     return r;
+// }
 
 function isHex(s){
 
@@ -107,7 +120,7 @@ function chengeEndian(s){
 	}
 
 	var j = 0;
-	while(j<l){
+	while(j<(l*2)){
 	    j += 2;
 	    r += lines[i][j];
 	    j += 1;
@@ -116,7 +129,7 @@ function chengeEndian(s){
 	    r += lines[i][j];
 	    j += 1;
 	    r += lines[i][j];
-	    j += 2;
+	    j += 3;
 	}
 	r += '\n';
     }
@@ -154,6 +167,7 @@ $('#myCheckBox').click(function(){
 	b = b.replace(/ /g,"");
     }
     $('#bitstr').text(b);
+    $('#outputbit').val(b);
 });
 
 function bit2ascii(b){
