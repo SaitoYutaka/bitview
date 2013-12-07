@@ -390,3 +390,7 @@ $('#bitstr').textHighlighter({
         //alert('You have selected "' + range + '" and created ' + highlights.length + ' highlight(s)!');
     }
 });
+
+exports.foo = function() { 
+    return 0;
+}
