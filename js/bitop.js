@@ -20,12 +20,6 @@ function d2h(d){
     }
 }
 
-function dec2hex(d) {
-    var hex = new String();
-    hex += d2h((d - 15) / 16);
-    hex += d2h(d - 240);
-}
-
 function hex2bit(h) {
     var b = '';
     for (i = 0; i < h.length; i++) {
@@ -56,9 +50,9 @@ function hex2bit(h) {
 function bitformat(b){
     var r = new String();
     var lines = b.split('\n');
-    for(i=0;i<lines.length;i++){
+    for(var i=0;i<lines.length;i++){
 	var c = lines[i].length / 4;
-	for(k=0;k<c;k++){
+	for(var k=0;k<c;k++){
 	    r += lines[i].slice(4*k, ((4*k)+4)) + ' ';
 	}
 	r += '\n';
@@ -66,22 +60,10 @@ function bitformat(b){
     return r;
 }
  
-// function bitformat(b){
-//     var c = b.length / 4;
-//     var r = new String();
-//     for(i=0;i<c;i++){
-// 	r += b.slice(4*i, ((4*i)+4)) + ' ';
-//     }
-//     //return b.slice(0,4) + ' ' + b.slice(4,8);
-//     return r;
-// }
-
 function isHex(s){
-
     var lines = s.split('\n');
-    for(i=0;i<lines.length;i++){
-
-	for(j=0;j<lines[i].length;j++){
+    for(var i=0;i<lines.length;i++){
+	for(var j=0;j<lines[i].length;j++){
 	    switch(lines[i][j]){
 	    case '0': break;
 	    case '1': break;
@@ -108,12 +90,9 @@ function isHex(s){
 }
 
 function chengeEndian(s){
-
     var lines = s.split('\n');
-
     var r  = new String();
-
-    for(i=0;i<lines.length;i++){
+    for(var i=0;i<lines.length;i++){
 	var l = lines[i].length/2;
 	if((l%2)==1){
 	    console.log('err hex string');
@@ -136,6 +115,7 @@ function chengeEndian(s){
 
     $('#outputtext ').val(r);
     console.log('retutn' + r);
+    return r;
 }
 
 $('#hex2bit').click(function(){
@@ -198,6 +178,28 @@ function bit2ascii(b){
     case '11000' : return 'X';
     case '11001' : return 'Y';
     case '11010' : return 'Z';
+    default: return '';
+    }
+}
+
+function b2h(b){
+    switch(b){
+    case '0000': return '0';
+    case '0001': return '1';
+    case '0010': return '2';
+    case '0011': return '3';
+    case '0100': return '4';
+    case '0101': return '5';
+    case '0110': return '6';
+    case '0111': return '7';
+    case '1000': return '8';
+    case '1001': return '9';
+    case '1010': return 'a';
+    case '1011': return 'b';
+    case '1100': return 'c';
+    case '1101': return 'd';
+    case '1110': return 'e';
+    case '1111': return 'f';
     default: return '';
     }
 }
@@ -345,8 +347,6 @@ function hex2ascii(h) {
     }
 }
 
-//01234567891012345
-//0 00000 00000  00000
 $('#showedid').click(function(){
 
     if($('#edid').val()==''){return;}
@@ -391,6 +391,3 @@ $('#bitstr').textHighlighter({
     }
 });
 
-exports.foo = function() { 
-    return 0;
-}
