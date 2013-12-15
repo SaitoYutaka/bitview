@@ -391,3 +391,83 @@ $('#bitstr').textHighlighter({
     }
 });
 
+
+$('#file_test').on('drop', function(event) {
+    event.preventDefault();
+    console.log('drop!!!');
+});
+
+function convHexformat(d){
+
+}
+
+function dump_file(str, size){
+    var r = new String();
+    for(var i=0;i<size;i++){
+	if((i>0) && ((i%15)==0)) r += '\n';
+
+	var tmp = str.charCodeAt(i).toString(16);
+	if(tmp.length==1) tmp = '0' + tmp;
+	r += tmp + ' ';
+    }
+    return r;
+}
+
+
+function foo(){
+
+    var b = $('#drop_output').text();
+    b = b.replace(/ /g,"");
+
+    chengeEndian(b);
+
+    if(isHex(b)==false) return;
+
+    b = hex2bit(b);
+
+    if ($('#myCheckBox:checked').val() != undefined)
+    {
+	b = bitformat(b);
+    }
+    $('#bitstext').text(b);
+}
+
+$(function() {
+    var inEle = $('#file-input div.input'),
+    outEle = $('#file-input div.out');
+    inEle
+	.on('dragenter', function(e) {
+	    e.preventDefault();
+	})
+	.on('dragover', function(e){
+	    e.preventDefault();
+	})
+	.on('drop', function(e){
+	    e.preventDefault();
+	    console.log('drop!!!!!');
+	    var files = e.originalEvent.dataTransfer.files;
+	    console.log(files);
+
+            var reader = new FileReader();
+            //ÉGÉâÅ[èàóù
+            reader.onerror = function(e) {
+		console.log('error', e.target.error.code);
+            }
+            //ì«Ç›çûÇ›å„ÇÃèàóù
+            reader.onload = function(e){
+		console.log(e.target.result.charCodeAt(0));
+		console.log(e.target);
+
+		var a = dump_file(e.target.result, files[0].size);
+		$('#drop_output').text(a);
+
+		foo();
+            };
+
+            reader.readAsBinaryString(files[0]);
+	    
+            //reader.readAsText(files[0], 'shift-jis');
+
+	});
+});
+
