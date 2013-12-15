@@ -2,14 +2,14 @@
 <html>
   <head>
     <title>Bit Opatations</title>
+
     <style type="text/css">
       #file-input div.input {
       padding: 60px;
       border: solid 1px #333;
-      width: 300px;
-      height: 200px;
+      width: 250px;
+      height: 10px;
       }
-
     </style>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -42,7 +42,7 @@ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <div class="container">
 
       <div class="row">
-      
+
         <div class="col-lg-12">
           <h1 class="page-header">Binary viewer</h1>
         </div>
@@ -50,12 +50,16 @@ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
       </div>
 
       <div class="row">
-        <div class="col-lg-12">
-	  <p>Drop file</p>
+        <div class="col-lg-7">
+
 	  <div id="file-input">
-	    <div class="input"></div>
+	    <div class="input">Drop file here.</div>
 	    <div class="out"></div>
 	  </div>
+        </div>
+        <div class="col-lg-5">
+	  <input type="checkbox" id="myCheckBox">
+	  <button id="hex2bit" type="button" class="btn btn-default">hex to bit</button>
         </div>
       </div>
 
@@ -75,73 +79,9 @@ HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
 
 
-    <!-- 01 23 45 67
-    <textarea id="drop_output" class="form-control" rows="6"></textarea> -->
-
-
-    <h1>hex to bit</h1>
-    <textarea id="txtbyte" class="form-control" rows="6"></textarea>
-    <h2>output switch endian</h2>
-    <textarea id="outputtext" class="form-control" rows="6"></textarea>
-    <input type="checkbox" id="myCheckBox">
-
-    <button id="hex2bit" type="button" class="btn btn-default">hex to bit</button>
-    <textarea id="outputbit" class="form-control" rows="6"></textarea>
-    <h2 id="bitstr"></h2>
-    <h2 id="selectedbit"></h2>
-
-    <h1>EDID</h1>
-
-    <p>Hex</p>
-    <p id="sandbox">00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f</p>
-    <p id="edid_">21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F 30 31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F 40 41 42 43 44 45 46 47 48 49 4A 4B 4C 4D 4E 4F 50 51 52 53 54 55 56 57 58 59 5A 5B 5C 5D 5E 5F 60 61 62 63 64 65 66 67 68 69 6A 6B 6C 6D 6E 6F 70 71 72 73 74 75 76 77 78 79 7A 7B 7C 7D 7E 7F</p>
-
-
-    <textarea id="edid" class="form-control" rows="3"></textarea>
-
-
-    <button id="showedid" type="button" class="btn btn-default">edid</button>
-
-    <h2>Fixed header pattern</h2>
-    <p id="Fixed_header_pattern"></p>
-    <h2>Manufacturer ID</h2>
-    <p id="Manufacturer_ID"></p>
-    <h2>Manufacturer product code</h2>
-    <p id="Manufacturer_product_code"></p>
-    <h2>Serial number</h2>
-    <p id="Serial_number"></p>
-
-    <h2>Week of manufacture</h2>
-    <p id="Week_of_manufacture"></p>
-
-    <h2>Year of manufacture</h2>
-    <p id="Year_of_manufacture"></p>
-
-    <h2>EDID version</h2>
-    <p id="EDID_version"></p>
-
-    <h2>Video input parameters bitmap</h2>
-    <p id="Video_input_parameters_bitmap"></p>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins)
-    <script src="https://code.jquery.com/jquery.js"></script> -->
-
-
-    <!-- <section id="file_test"> -->
-    <!--   <p>ドラッグアンドドロップで1つから複数のファイルのプロパティを取得します。</p> -->
-    <!--   <\!-- <div id="drop" style="width:700px; height:150px; padding:10px; border:3px solid" ondragover="onDragOver(event)" ondrop="onDrop(event)"  >ここにドロップしたファイルのプロパティを読み込みます。</div> -\-> -->
-    <!--   <div id="drop" style="width:700px; height:150px; padding:10px; border:3px solid">ここにドロップしたファイルのプロパティを読み込みます。</div> -->
-    <!--   <p>ファイルプロパティ表示</p> -->
-    <!--   <div id="disp" ></div> -->
-    <!-- </section> -->
-
-
-
-
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bitop.js"></script>
-
 
   </body>
 </html>

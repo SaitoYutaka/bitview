@@ -123,8 +123,6 @@ $('#hex2bit').click(function(){
     var b = $('#txtbyte').val();
     b = b.replace(/ /g,"");
 
-    chengeEndian(b);
-
     if(isHex(b)==false) return;
 
     b = hex2bit(b);
@@ -347,30 +345,6 @@ function hex2ascii(h) {
     }
 }
 
-$('#showedid').click(function(){
-
-    if($('#edid').val()==''){return;}
-
-    var lines = $('#edid').val().split('\n');
-    var p = getAllBytes(lines);
-
-    $('#Fixed_header_pattern').text(p[0] + p[1] + p[2] + p[3] + p[4] + p[5] + p[6] + p[7]);
-
-    var mId = getManufacturerID(hex2bit(p[8]) + hex2bit(p[9]));
-    $('#Manufacturer_ID').text(mId);
-
-    $('#Manufacturer_product_code').text(p[10] +' '+ p[11]);
-    $('#Serial_number').text(p[12] +' '+ p[13] +' '+ p[14] +' '+ p[15]);
-
-    $('#Week_of_manufacture').text(p[16]);
-    $('#Year_of_manufacture').text(p[17]);
-    $('#EDID_version').text(p[18]+' '+p[19]);
-
-    var a = getVideoInputParametersBitmap(hex2bit(p[20]));
-    $('#Video_input_parameters_bitmap').text(a);
-
-});
-
 $('.highlighted').on('click', function() {
     $('#bitstr').getHighlighter().removeHighlights(this);
 });
@@ -397,29 +371,79 @@ $('#file_test').on('drop', function(event) {
     console.log('drop!!!');
 });
 
-function convHexformat(d){
-
-}
-
-function dump_file(str, size){
+function makeaddrstr(c){
     var r = new String();
-    for(var i=0;i<size;i++){
-	if((i>0) && ((i%15)==0)) r += '\n';
-
-	var tmp = str.charCodeAt(i).toString(16);
-	if(tmp.length==1) tmp = '0' + tmp;
-	r += tmp + ' ';
+    var h = new String();
+    h = c.toString(16);
+    switch(h.length){
+    case 1: r += '0000000' + h; break;
+    case 2: r += '000000' + h; break;
+    case 3: r += '00000' + h; break;
+    case 4: r += '0000' + h; break;
+    case 5: r += '000' + h; break;
+    case 6: r += '00' + h; break;
+    case 7: r += '0' + h; break;
+    default: 
+	console.log('make addr error');
+	break;
     }
     return r;
 }
 
+function makeasciiline(l){
+    var r = new String();
+
+    var h = l.split(' ');
+    for(var i=0;i<h.length;i++){
+	r += hex2ascii(h[i]) + ' ';
+    }
+
+    return r;
+}
+
+function dump_file(str, size){
+    var r = new String();
+
+    var l = new String();
+
+    var c = 0;
+    var addr = new String();
+
+    var allline = new String();
+
+    for(var i=0;i<size;i++){
+
+	if((i>0) && ((i%15)==0)){
+
+	    l = makeasciiline(l);
+
+	    addr = makeaddrstr(c);
+	    //r = addr + '        ' + r + '        ' + l + '\n';
+	    allline += addr + '        ' + r + '        ' + l + '\n';
+
+	    c = c + 1;
+	    l = '';
+	    addr = '';
+	    r = ''
+	}
+
+	var tmp = str.charCodeAt(i).toString(16);
+
+	if(tmp.length==1) tmp = '0' + tmp;
+
+	l += tmp + ' ';
+
+	r += tmp + ' ';
+    }
+    return allline;
+}
 
 function foo(){
 
     var b = $('#drop_output').text();
+    b = b.replace(/[0-9a-f]{8}        /g,"");
+    b = b.replace(/        .{33}/g,"");
     b = b.replace(/ /g,"");
-
-    chengeEndian(b);
 
     if(isHex(b)==false) return;
 
@@ -471,3 +495,12 @@ $(function() {
 	});
 });
 
+$('#drop_output').click(function(){
+    $('#drop_output').css('line-height');
+});
+
+
+
+$('#drop_output').on('scroll', function () {
+    $('#bitstext').scrollTop($(this).scrollTop());
+});
