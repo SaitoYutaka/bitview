@@ -456,7 +456,7 @@ function foo(){
 
     var a = b.split('\n');
     for(var i=0;i<a.length;i++){
-	$('#bit_table_output').append('<tr class="addClick"><td>'+a[i]+'</td></tr>');
+	$('#bit_table_output').append('<tr class="bittr"><td>'+a[i]+'</td></tr>');
     }
 }
 
@@ -511,8 +511,10 @@ $('#test_output').on("click", '.addClick', function() {
     console.log(bg);
     if(bg=="rgb(127, 255, 212)"){
 	$( this ).css( "background", "white" );
+	$('.bittr:eq('+col_index+')').css( "background", "white" );
     }else{
 	$( this ).css( "background", "aquamarine" );
+	$('.bittr:eq('+col_index+')').css( "background", "aquamarine" );
     }
     console.log('hoge row ' + row_index + 'col ' + col_index);
 });
