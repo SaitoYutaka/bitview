@@ -439,7 +439,6 @@ function dump_file(str, size){
 }
 
 function foo(){
-
     var b = $('#drop_output').text();
     b = b.replace(/[0-9a-f]{8}        /g,"");
     b = b.replace(/        .{33}/g,"");
@@ -454,6 +453,11 @@ function foo(){
 	b = bitformat(b);
     }
     $('#bitstext').text(b);
+
+    var a = b.split('\n');
+    for(var i=0;i<a.length;i++){
+	$('#bit_table_output').append('<tr class="addClick"><td>'+a[i]+'</td></tr>');
+    }
 }
 
 $(function() {
@@ -485,20 +489,42 @@ $(function() {
 		var a = dump_file(e.target.result, files[0].size);
 		$('#drop_output').text(a);
 
+		var t = a.split('\n');
+		for(var i=0;i<t.length;i++){
+		    var x = t[i].split('        ');
+		    
+		    $('#test_output').append('<tr class="addClick"><td>'+x[0]+'</td><td>'+x[1]+'</td><td>'+x[2]+'</td></tr>');
+
+		}
+
 		foo();
             };
 
             reader.readAsBinaryString(files[0]);
-	    
-            //reader.readAsText(files[0], 'shift-jis');
-
 	});
+});
+
+$('#test_output').on("click", '.addClick', function() {
+    var row_index = $(this).parent().index();
+    var col_index = $(this).index();
+    var bg = $( this ).css("background-color");
+    console.log(bg);
+    if(bg=="rgb(127, 255, 212)"){
+	$( this ).css( "background", "white" );
+    }else{
+	$( this ).css( "background", "aquamarine" );
+    }
+    console.log('hoge row ' + row_index + 'col ' + col_index);
 });
 
 $('#drop_output').click(function(){
     $('#drop_output').css('line-height');
 });
 
+
+$('#hextable').on('scroll', function () {
+    $('#bittable').scrollTop($(this).scrollTop());
+});
 
 
 $('#drop_output').on('scroll', function () {
